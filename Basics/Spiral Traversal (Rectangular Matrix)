@@ -1,1 +1,88 @@
+import java.util.*;
+import java.io.*;
+import java.util.stream.*;
+import java.util.stream.Collectors.*;
+
+class Main{
+    
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int tc = Integer.parseInt(br.readLine());
+        
+        for(int i=0; i<tc; i++)
+        {
+            int[] input_arr = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            
+            int m = input_arr[0];
+            int n = input_arr[1];
+            
+            List<List<Integer>> matrix = new ArrayList<>();
+            
+            for(int j=0; j<m; j++)
+            {
+                List<Integer> list = Stream.of(br.readLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+                
+                matrix.add(list);
+                
+            }
+
+            solve(m,n,matrix);
+            
+            // System.out.println();
+        }
+    }
+    
+    static void solve(int row , int col, List<List<Integer>> matrix){
+        
+        int top=0; 
+        int left=0;
+        int right=matrix.get(0).size()-1; /* col-1 */
+        int bottom=matrix.size()-1;  /* row-1 */
+        
+        List<Integer> arr = new ArrayList<>();
+        
+        int count=0;
+        
+        while(count<row*col){
+            
+            for(int i=top; i<=bottom && count<row*col; i++)
+            {
+                arr.add(matrix.get(i).get(left));
+                count++;
+            }
+            left++;
+            
+            for(int j=left; j<=right && count<row*col; j++)
+            {
+                arr.add(matrix.get(bottom).get(j));
+                count++;
+            }
+            bottom--;
+            
+            for(int k=bottom; k>=top && count<row*col; k--)
+            {
+                arr.add(matrix.get(k).get(right));
+                count++;
+            }
+            right--;
+            
+            for(int l=right; l>=left && count<row*col; l--)
+            {
+                arr.add(matrix.get(top).get(l));
+                count++;
+            }
+            top++;
+        }
+        
+        String str = arr.stream().map(String::valueOf).collect(Collectors.joining(" "));
+        
+        System.out.println(str);
+        
+        // arr.forEach(i -> System.out.print(i+" "));
+    }
+    
+}
+
 
