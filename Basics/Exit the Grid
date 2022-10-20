@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+import java.util.stream.*;
+import java.util.stream.Collectors.*;
+
+class Main{
+    
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int tc = Integer.parseInt(br.readLine());
+        
+        for(int i=0; i<tc; i++)
+        {
+            
+            int n = Integer.parseInt(br.readLine().trim());
+            
+            List<List<String>> matrix = new ArrayList<>();
+            
+            for(int j=0; j<n; j++)
+            {
+                
+                List<String> str = Stream.of(br.readLine().trim().split("")).collect(Collectors.toList());
+                
+                matrix.add(str);
+            
+            }
+
+            given(n,matrix);
+            
+        }
+        
+    }
+    
+    static void given(int n , List<List<String>> matrix){
+        
+        int row=0;
+        int col=0;
+        
+        int count=0;
+        
+        while(count<n*n){
+            
+            if(matrix.get(row).get(col).equals("L"))
+            {
+                col--;
+                count++;
+            }
+            else if(matrix.get(row).get(col).equals("R"))
+            {
+                col++;
+                count++;
+            }
+            else if(matrix.get(row).get(col).equals("U"))
+            {
+                row--;
+                count++;
+            }
+            else if(matrix.get(row).get(col).equals("D"))
+            {
+                row++;
+                count++;
+            }
+            
+            if(row<0 || col<0 || row>=matrix.size() || col>=matrix.size())
+            {
+                System.out.println(count);
+                return;
+            }
+            
+        }
+        
+        System.out.println(0);
+    }
+    
+}
