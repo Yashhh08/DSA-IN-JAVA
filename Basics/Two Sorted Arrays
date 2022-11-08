@@ -1,0 +1,55 @@
+import java.util.*;
+import java.io.*;
+import java.util.stream.*;
+
+class Main{
+    
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int tc = Integer.parseInt(br.readLine());
+        
+        for(int i=0; i<tc; i++)
+        {
+            int n = Integer.parseInt(br.readLine());
+            
+            int[] arr1 = Stream.of(br.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+            
+            int[] arr2 = Stream.of(br.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+            
+            given(n,arr1,arr2);
+        }
+        
+    }
+    
+    public static void given(int n , int[] arr1, int[] arr2){
+        
+        int left=0;
+        int right=arr2.length-1;
+        
+        int count=0;
+        
+        while(left<=arr1.length-1 && right>=0)
+        {
+            if(arr1[left]==arr2[right])
+            {
+                count++;
+                left++;
+                right--;
+            }
+            else if(arr1[left]<arr2[right])
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+        }
+ 
+        System.out.println(count);
+        
+    }
+    
+}
