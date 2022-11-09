@@ -1,0 +1,71 @@
+import java.util.*;
+import java.io.*;
+import java.util.stream.*;
+
+class Main{
+    
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int tc = Integer.parseInt(br.readLine());
+        
+        for(int i=0; i<tc; i++)
+        {
+            int n = Integer.parseInt(br.readLine().trim());
+            
+            int[] arr1 = Stream.of(br.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+            
+            int m = Integer.parseInt(br.readLine().trim());
+            
+            int[] arr2 = Stream.of(br.readLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+            
+            // System.out.println(n+" "+Arrays.toString(arr1)+" "+m+" "+Arrays.toString(arr2));
+            
+            given(n,m,arr1,arr2);
+            
+            System.out.println();
+        }
+        
+    }
+    
+    public static void given(int n , int m , int[] arr1, int[] arr2){
+        
+        int first=0;
+        int second=0;
+        
+        List<Integer> list = new ArrayList<>();
+        
+        while(first<arr1.length && second<arr2.length){
+            
+            if(arr1[first]==arr2[second])
+            {
+                list.add(arr1[first]);
+                first++;
+                second++;
+            }
+            else if(arr1[first]>arr2[second])
+            {
+                second++;
+            }
+            else
+            {
+                first++;
+            }
+            
+        }
+        
+        if(list.size()==0)
+        {
+            System.out.print(-1);
+            return;
+        }
+        
+        for(int i=0; i<list.size(); i++)
+        {
+            System.out.print(list.get(i)+" ");
+        }
+        
+    }
+    
+}
