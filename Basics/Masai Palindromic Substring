@@ -1,0 +1,54 @@
+import java.util.*;
+import java.io.*;
+import java.util.stream.*;
+import java.util.stream.Collectors.*;
+
+class Main{
+    
+    public static void main(String[] args) throws IOException{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        String str = br.readLine();
+        
+        given(str);
+        
+    }
+    
+    public static void given(String str){
+        
+        List<Integer> list = new ArrayList<>();
+        
+        for(int i=0; i<str.length(); i++)
+        {
+            String strr = "";
+            
+            for(int j=i; j<=str.length()-1; j++)
+            {
+            
+                strr+=str.charAt(j);
+                
+                if(strr.equals(reverse(strr)))
+                {
+                    list.add(strr.length());
+                }
+                
+            }
+        }
+        
+        System.out.println(Collections.max(list));
+    }
+    
+    public static String reverse(String str){
+        
+        String ans="";
+        
+        for(int i=str.length()-1; i>=0; i--)
+        {
+            ans+=str.charAt(i);
+        }
+        
+        return ans;
+    }
+    
+}
